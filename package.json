@@ -1,21 +1,43 @@
 {
   "name": "nuxt-auth",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev --port 1111",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "prepare": "husky"
   },
   "dependencies": {
+    "@nuxt/eslint": "1.15.2",
+    "@nuxt/ui": "^4.5.1",
+    "@vueuse/core": "^14.2.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.3",
     "nuxt": "^4.3.1",
     "nuxt-auth-utils": "0.5.29",
+    "tailwindcss": "^4.2.1",
     "vue": "^3.5.29",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
-    "@types/node": "^25.3.5"
+    "@types/node": "^25.3.5",
+    "oxfmt": "^0.37.0",
+    "typescript": "^5.9.3"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": [
+      "eslint .",
+      "oxfmt --check"
+    ],
+    "*.{json,md,css,scss,html,yml}": [
+      "oxfmt --check"
+    ]
   }
 }
