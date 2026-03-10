@@ -9,6 +9,6 @@
   "tailwindCSS.experimental.classRegex": [["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "oxc.oxc-vscode",
-  "editor.formatOnSaveMode": "modifications",
+  "editor.formatOnSaveMode": "file",
   "eslint.codeActionsOnSave.mode": "problems"
 }

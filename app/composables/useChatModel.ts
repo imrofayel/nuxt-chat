@@ -21,7 +21,7 @@ const PROVIDERS = [
   },
 ];
 
-export const useModel = () => {
+export const useChatModel = () => {
   const models = useState("models", () => PROVIDERS);
   const currentModel = useState("current-model", () => PROVIDERS[0]);
 

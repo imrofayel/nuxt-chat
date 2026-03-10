@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { InputMenuItem } from "@nuxt/ui";
 
-const { models, currentModel } = useModel();
+const { models, currentModel } = useChatModel();
 
 const items = ref(models.value satisfies InputMenuItem[]);
 
