@@ -1,11 +1,26 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+:root {
+  --ui-text-dimmed: light-dark(#555555, #dddddd);
+  --ui-text-muted: light-dark(#aaaaaa, #dddddd);
+  --ui-text-toned: light-dark(#aaaaaa, #dddddd);
+  --ui-text: light-dark(#191919, #dddddd);
+}
+
 @theme {
   --color-background: light-dark(white, #121212);
+  --text-large: 1.4em;
+  --text-medium: 1.05em;
+  --text-small: 0.94em;
+  --text-tooltip: 0.88em;
+  --size-large: 1.45em;
+  --text-icon: 1.26em;
+  --font-sans: "Inter", sans-serif;
 }
 
 body {
+  font-family: var(--font-sans);
   background-color: var(--color-background);
 }
 
@@ -16,4 +31,29 @@ textarea {
 
 textarea::-webkit-scrollbar {
   display: none;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-display: swap;
+  corner-shape: squircle;
+}
+
+.iconify.i-ri\:openai-fill {
+  @apply size-5.75;
+}
+
+.alter-input [data-slot="base"] {
+  font-size: var(--text-small) !important;
+}
+
+.alter-input [data-slot="base"] {
+  --tw-ring-shadow: inset 0 0 0 1px var(--tw-ring-color) !important;
+}
+
+.alter-input [data-slot="base"]:focus,
+.alter-input [data-slot="base"]:focus-visible {
+  --tw-ring-shadow: inset 0 0 0 1px var(--tw-ring-color) !important;
 }

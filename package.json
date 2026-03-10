@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@nuxt/eslint": "1.15.2",
+    "@nuxt/fonts": "0.14.0",
     "@nuxt/ui": "^4.5.1",
     "@vueuse/core": "^14.2.1",
     "husky": "^9.1.7",
@@ -27,6 +28,7 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@iconify-json/codicon": "^1.2.48",
     "@types/node": "^25.3.5",
     "oxfmt": "^0.37.0",
     "typescript": "^5.9.3"
@@ -39,5 +41,10 @@
     "*.{json,md,css,scss,html,yml}": [
       "oxfmt --check"
     ]
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "npm:rolldown-vite@latest"
+    }
   }
 }
