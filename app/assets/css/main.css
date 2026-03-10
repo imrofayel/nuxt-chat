@@ -48,12 +48,3 @@ textarea::-webkit-scrollbar {
 .alter-input [data-slot="base"] {
   font-size: var(--text-small) !important;
 }
-
-.alter-input [data-slot="base"] {
-  --tw-ring-shadow: inset 0 0 0 1px var(--tw-ring-color) !important;
-}
-
-.alter-input [data-slot="base"]:focus,
-.alter-input [data-slot="base"]:focus-visible {
-  --tw-ring-shadow: inset 0 0 0 1px var(--tw-ring-color) !important;
-}
