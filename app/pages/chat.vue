@@ -1,10 +1,25 @@
 <script lang="ts" setup>
-const { currentChat, getMessagesForChat } = useChat();
+import { Chat } from "@ai-sdk/vue";
+
+const chat = new Chat({});
+
+const { currentModel } = useChatModel();
+
+const sendMessage = (message: string) => {
+  chat.sendMessage(
+    { text: message },
+    {
+      body: {
+        model: currentModel.value?.value,
+      },
+    },
+  );
+};
 </script>
 
 <template>
-  <div class="">
-    <ChatMessages :messages="getMessagesForChat(currentChat)" />
-    <ChatInput />
+  <div>
+    <ChatMessages :messages="chat.messages" />
+    <ChatInput :context-usage="34.4" @message:send="sendMessage" />
   </div>
 </template>

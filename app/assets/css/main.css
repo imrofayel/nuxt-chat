@@ -48,3 +48,24 @@ textarea::-webkit-scrollbar {
 .alter-input [data-slot="base"] {
   font-size: var(--text-small) !important;
 }
+
+/* Shiki dual-theme support for MDC code blocks. */
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark);
+    background-color: var(--shiki-dark-bg);
+  }
+}

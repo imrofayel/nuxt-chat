@@ -6,6 +6,27 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
+  mdc: {
+    highlight: {
+      theme: {
+        default: "github-light",
+        dark: "github-dark",
+      },
+      langs: [
+        "python",
+        "javascript",
+        "typescript",
+        "bash",
+        "json",
+        "yaml",
+        "html",
+        "css",
+        "vue",
+        "markdown",
+      ],
+    },
+  },
+
   runtimeConfig: {
     oauth: {
       github: {
@@ -13,6 +34,9 @@ export default defineNuxtConfig({
         clientSecret: process.env.NUXT_OAUTH_GITHUB_CLIENT_SECRET,
         redirectURL: process.env.NUXT_OAUTH_GITHUB_REDIRECT_URL,
       },
+    },
+    ai: {
+      aiGatewayApiKey: process.env.NUXT_AI_GATEWAY_API_KEY,
     },
   },
 });
