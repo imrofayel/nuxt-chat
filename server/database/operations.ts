@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, inArray, sql } from "drizzle-orm";
 import db from "#server/database/db";
 import { chats, messages, type Role } from "#server/database/schema";
 
@@ -35,4 +35,21 @@ function getMessagesByChatId(chatId: string) {
   return db.select().from(messages).where(eq(messages.chatId, chatId));
 }
 
-export { newChat, newMessage, getChatsByGithubId, getMessagesByChatId };
+async function countMessagesByGithubId(githubId: string) {
+  const chatRows = await db
+    .select({ id: chats.id })
+    .from(chats)
+    .where(eq(chats.githubId, githubId));
+
+  if (chatRows.length === 0) return 0;
+
+  const chatIds = chatRows.map((chat) => String(chat.id));
+  const [countRow] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(messages)
+    .where(inArray(messages.chatId, chatIds));
+
+  return Number(countRow?.count ?? 0);
+}
+
+export { newChat, newMessage, getChatsByGithubId, getMessagesByChatId, countMessagesByGithubId };

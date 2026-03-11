@@ -29,7 +29,7 @@ const PROVIDERS: ChatModel[] = [
 
 export const useChatModel = () => {
   const models = useState("models", () => PROVIDERS);
-  const currentModel = useState("current-model", () => PROVIDERS[0]);
+  const currentModel = useState("current-model", () => PROVIDERS[2]);
 
   return { models, currentModel };
 };
