@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between">
         <div class="flex cursor-pointer items-center gap-2.5 pr-3 text-base">
           <UAvatar :src="info.avatar" class="rounded-none" />
-          {{ info.username }}
+          {{ info.name }}
         </div>
       </div>
     </div>
@@ -23,9 +23,9 @@
   </div>
 
   <UButton
+    v-if="info && showLogout"
     variant="ghost"
     color="neutral"
-    v-if="info && showLogout"
     class="flex cursor-pointer items-center rounded-md bg-elevated p-1.5 text-base font-normal! ring ring-accented ring-inset"
     @click="logout"
   >

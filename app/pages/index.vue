@@ -3,7 +3,7 @@
     <h1 class="text-2xl">Nuxt Chat</h1>
 
     <div class="flex max-w-fit gap-2">
-      <AppUser :showLogout="true" />
+      <AppUser :show-logout="true" />
     </div>
   </div>
 </template>

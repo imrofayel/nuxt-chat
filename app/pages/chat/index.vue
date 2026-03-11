@@ -23,18 +23,20 @@ const sendMessage = async (message: string) => {
     }
   }
 
-  await chat.sendMessage(
-    { text: message },
-    {
-      body: {
-        model: currentModel.value?.value,
-        chatId: activeChatId.value,
+  try {
+    await chat.sendMessage(
+      { text: message },
+      {
+        body: {
+          model: currentModel.value?.value,
+          chatId: activeChatId.value,
+        },
       },
-    },
-  );
-
-  if (isNewChat && activeChatId.value) {
-    await navigateTo(`/chat/${activeChatId.value}`, { replace: true });
+    );
+  } finally {
+    if (isNewChat && activeChatId.value) {
+      await navigateTo(`/chat/${activeChatId.value}`, { replace: true });
+    }
   }
 };
 </script>

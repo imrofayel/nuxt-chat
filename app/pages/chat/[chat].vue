@@ -7,22 +7,40 @@ const route = useRoute();
 const chatId = computed(() => String(route.params.chat));
 const { currentModel } = useChatModel();
 
-const { data: dbMessages, error } = await useFetch<SelectMessage[]>(
-  `/api/messages/${chatId.value}`,
-);
+const {
+  data: dbMessages,
+  error,
+  pending,
+} = await useFetch<SelectMessage[]>(() => `/api/messages/${chatId.value}`, {
+  lazy: true,
+  default: () => [] as SelectMessage[],
+});
 
-if (error.value || !dbMessages.value?.length) {
+if (error.value) {
   await navigateTo("/chat", { replace: true });
 }
 
-const initialMessages: UIMessage[] = (dbMessages.value ?? []).map((m) => ({
-  id: String(m.id),
-  role: m.role as UIMessage["role"],
-  content: m.content,
-  parts: [{ type: "text" as const, text: m.content }],
-}));
+const toUIMessages = (messages: SelectMessage[]): UIMessage[] =>
+  messages.map((m) => ({
+    id: String(m.id),
+    role: m.role as UIMessage["role"],
+    content: m.content,
+    parts: [{ type: "text" as const, text: m.content }],
+  }));
+
+const initialMessages = toUIMessages(dbMessages.value ?? []);
 
 const chat = new Chat({ messages: initialMessages });
+
+watch(
+  dbMessages,
+  (messages) => {
+    if (chat.messages.length === 0 && (messages?.length ?? 0) > 0) {
+      chat.messages = toUIMessages(messages ?? []);
+    }
+  },
+  { immediate: true },
+);
 
 const sendMessage = async (message: string) => {
   if (chat.status === "submitted" || chat.status === "streaming") return;
@@ -41,7 +59,17 @@ const sendMessage = async (message: string) => {
 
 <template>
   <div>
-    <ChatMessages :messages="chat.messages" :streaming="chat.status === 'streaming'" />
+    <div v-if="pending" class="flex flex-col gap-4">
+      <div
+        v-for="i in 2"
+        :key="i"
+        class="flex w-full"
+        :class="i % 2 !== 0 ? 'justify-end' : 'justify-start'"
+      >
+        <USkeleton class="h-12" :class="i % 2 !== 0 ? 'w-40' : 'w-96'" />
+      </div>
+    </div>
+    <ChatMessages v-else :messages="chat.messages" :streaming="chat.status === 'streaming'" />
     <ChatInput
       :context-usage="34.4"
       :disabled="chat.status === 'submitted' || chat.status === 'streaming'"
