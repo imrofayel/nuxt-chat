@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { bundledLanguages } from "shiki";
+import type { BundledLanguage, LanguageRegistration } from "shiki";
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
@@ -12,18 +15,7 @@ export default defineNuxtConfig({
         default: "github-light",
         dark: "github-dark",
       },
-      langs: [
-        "python",
-        "javascript",
-        "typescript",
-        "bash",
-        "json",
-        "yaml",
-        "html",
-        "css",
-        "vue",
-        "markdown",
-      ],
+      langs: Object.keys(bundledLanguages) as (BundledLanguage | LanguageRegistration)[],
     },
   },
 
@@ -38,5 +30,7 @@ export default defineNuxtConfig({
     ai: {
       aiGatewayApiKey: process.env.NUXT_AI_GATEWAY_API_KEY,
     },
+    tursoConnectionUrl: process.env.TURSO_CONNECTION_URL,
+    tursoAuthToken: process.env.TURSO_AUTH_TOKEN,
   },
 });
