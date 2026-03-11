@@ -1,20 +1,22 @@
 <script lang="ts" setup>
-defineProps<{
+const props = defineProps<{
   contextUsage: number;
+  disabled?: boolean;
 }>();
 
 const emit = defineEmits<{
   "message:send": [value: string];
 }>();
 
-function sendMessage() {
-  if (!prompt.value.trim()) return;
+const prompt = ref("");
 
-  emit("message:send", prompt.value);
+function handleSend() {
+  const text = prompt.value.trim();
+  if (!text || props.disabled) return;
+
+  emit("message:send", text);
   prompt.value = "";
 }
-
-const prompt = ref("");
 </script>
 
 <template>
@@ -29,7 +31,8 @@ const prompt = ref("");
         placeholder="Got a thought to share?"
         autoresize
         :maxrows="8"
-        @keyup.enter="sendMessage"
+        :disabled="disabled"
+        @keydown.enter.exact.prevent="handleSend"
       />
       <div class="py-1.5">
         <ContextUsage :value="contextUsage" />
@@ -37,18 +40,14 @@ const prompt = ref("");
     </div>
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-0.5">
-        <ChatModelSelector />
-        <UTooltip text="Attach files" :delay-duration="0">
-          <UButton variant="ghost" class="relative -top-0.5 text-icon!">
-            <UIcon name="codicon:file" />
-          </UButton>
-        </UTooltip>
+        <ChatModelSelector :disabled="disabled" />
       </div>
       <UButton
         variant="subtle"
         color="neutral"
+        :loading="disabled"
         class="relative rounded-md text-small! ring ring-accented ring-inset"
-        @click="sendMessage"
+        @click="handleSend"
       >
         Send
       </UButton>

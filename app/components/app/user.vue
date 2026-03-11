@@ -6,7 +6,6 @@
           <UAvatar :src="info.avatar" class="rounded-none" />
           {{ info.name }}
         </div>
-        <UBadge color="neutral" variant="outline" class="text-small!">Pro</UBadge>
       </div>
     </div>
 

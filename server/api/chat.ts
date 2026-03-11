@@ -16,6 +16,14 @@ export default defineLazyEventHandler(async () => {
       messages: await convertToModelMessages(messages),
     });
 
+    // const uiStream = result.toUIMessageStreamResponse();
+
+    // const usage = await result.totalUsage;
+    // uiStream.headers.set(
+    //   "X-Total-Tokens",
+    //   usage.totalTokens?.toString() || "0",
+    // );
+
     return result.toUIMessageStreamResponse();
   });
 });

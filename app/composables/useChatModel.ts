@@ -1,4 +1,10 @@
-const PROVIDERS = [
+interface ChatModel {
+  label: string;
+  value: string;
+  icon: string;
+}
+
+const PROVIDERS: ChatModel[] = [
   {
     label: "Claude Haiku 4.5",
     value: "anthropic/claude-haiku-4.5",

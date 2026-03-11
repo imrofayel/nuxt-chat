@@ -6,6 +6,8 @@
   --ui-text-muted: light-dark(#aaaaaa, #dddddd);
   --ui-text-toned: light-dark(#aaaaaa, #dddddd);
   --ui-text: light-dark(#191919, #dddddd);
+  --foreground: var(--ui-text);
+  --muted-foreground: light-dark(#aaaaaa, #dddddda7);
 }
 
 @theme {
@@ -16,7 +18,7 @@
   --text-tooltip: 0.88em;
   --size-large: 1.45em;
   --text-icon: 1.26em;
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "Inter", "Gulzar", sans-serif;
 }
 
 body {
@@ -47,25 +49,4 @@ textarea::-webkit-scrollbar {
 
 .alter-input [data-slot="base"] {
   font-size: var(--text-small) !important;
-}
-
-/* Shiki dual-theme support for MDC code blocks. */
-.shiki,
-.shiki span {
-  color: var(--shiki-light);
-  background-color: var(--shiki-light-bg);
-}
-
-.dark .shiki,
-.dark .shiki span {
-  color: var(--shiki-dark);
-  background-color: var(--shiki-dark-bg);
-}
-
-@media (prefers-color-scheme: dark) {
-  .shiki,
-  .shiki span {
-    color: var(--shiki-dark);
-    background-color: var(--shiki-dark-bg);
-  }
 }

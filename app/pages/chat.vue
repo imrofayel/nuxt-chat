@@ -2,11 +2,12 @@
 import { Chat } from "@ai-sdk/vue";
 
 const chat = new Chat({});
-
 const { currentModel } = useChatModel();
 
-const sendMessage = (message: string) => {
-  chat.sendMessage(
+const sendMessage = async (message: string) => {
+  if (chat.status === "submitted" || chat.status === "streaming") return;
+
+  await chat.sendMessage(
     { text: message },
     {
       body: {
@@ -19,7 +20,11 @@ const sendMessage = (message: string) => {
 
 <template>
   <div>
-    <ChatMessages :messages="chat.messages" />
-    <ChatInput :context-usage="34.4" @message:send="sendMessage" />
+    <ChatMessages :messages="chat.messages" :streaming="chat.status === 'streaming'" />
+    <ChatInput
+      :context-usage="34.4"
+      :disabled="chat.status === 'submitted' || chat.status === 'streaming'"
+      @message:send="sendMessage"
+    />
   </div>
 </template>
