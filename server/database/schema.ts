@@ -33,3 +33,9 @@ export const messages = sqliteTable(
   },
   (table) => [uniqueIndex("idx_chat").on(table.chatId)],
 );
+
+export type InsertChat = typeof chats.$inferInsert;
+export type SelectChat = typeof chats.$inferSelect;
+
+export type InsertMessage = typeof messages.$inferInsert;
+export type SelectMessage = typeof messages.$inferSelect;

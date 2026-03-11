@@ -41,6 +41,9 @@ importers:
       drizzle-orm:
         specifier: ^0.45.1
         version: 0.45.1(@libsql/client@0.17.0)(@opentelemetry/api@1.9.0)
+      drizzle-zod:
+        specifier: ^0.8.3
+        version: 0.8.3(drizzle-orm@0.45.1(@libsql/client@0.17.0)(@opentelemetry/api@1.9.0))(zod@4.3.6)
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -3583,6 +3586,12 @@ packages:
         optional: true
       sqlite3:
         optional: true
+
+  drizzle-zod@0.8.3:
+    resolution: {integrity: sha512-66yVOuvGhKJnTdiqj1/Xaaz9/qzOdRJADpDa68enqS6g3t0kpNkwNYjUuaeXgZfO/UWuIM9HIhSlJ6C5ZraMww==}
+    peerDependencies:
+      drizzle-orm: '>=0.36.0'
+      zod: ^3.25.0 || ^4.0.0
 
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
@@ -9903,6 +9912,11 @@ snapshots:
     optionalDependencies:
       '@libsql/client': 0.17.0
       '@opentelemetry/api': 1.9.0
+
+  drizzle-zod@0.8.3(drizzle-orm@0.45.1(@libsql/client@0.17.0)(@opentelemetry/api@1.9.0))(zod@4.3.6):
+    dependencies:
+      drizzle-orm: 0.45.1(@libsql/client@0.17.0)(@opentelemetry/api@1.9.0)
+      zod: 4.3.6
 
   duplexer@0.1.2: {}
 
