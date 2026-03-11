@@ -1,28 +1,21 @@
 <template>
-  <div>
-    <h1>Nuxt Auth Example</h1>
+  <div class="flex flex-col gap-4">
+    <h1 class="text-2xl">Nuxt Chat</h1>
 
-    <div v-if="loggedIn">
-      <p>Welcome, {{ info.username }}!</p>
-      <button @click="logout">Logout</button>
-    </div>
-    <div v-else>
-      <button @click="login">Login to GitHub</button>
+    <div class="flex max-w-fit gap-2">
+      <AppUser />
+      <UButton
+        variant="ghost"
+        color="neutral"
+        class="flex cursor-pointer items-center rounded-md bg-elevated p-1.5 text-base font-normal! ring ring-accented ring-inset"
+        @click="logout"
+      >
+        Logout
+      </UButton>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const { loggedIn, user, clear } = useUserSession();
-
-const info = computed(() => user.value as GitHubUser);
-
-const login = async () => {
-  await navigateTo("/auth/github", { external: true });
-};
-
-const logout = async () => {
-  await clear();
-  await navigateTo("/");
-};
+const { logout } = useUser();
 </script>

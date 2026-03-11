@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import { Chat } from "@ai-sdk/vue";
 
+definePageMeta({
+  middleware: "auth",
+  layout: "chat",
+});
+
 const chat = new Chat({});
 const { currentModel } = useChatModel();
 
