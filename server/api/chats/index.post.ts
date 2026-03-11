@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   const req = await readValidatedBody(event, chatInsertSchema.safeParse);
 
   if (!req.success) {
-    return inputError;
+    return inputError();
   }
 
   const response = await newChat(req.data);

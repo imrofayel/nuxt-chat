@@ -9,6 +9,7 @@ export default defineOAuthGitHubEventHandler({
   async onSuccess(event, { user }) {
     await setUserSession(event, {
       user: {
+        githubId: user.id,
         username: user.login,
         name: user.name,
         email: user.email,

@@ -6,7 +6,7 @@ CREATE TABLE `chats` (
 	`updated_at` integer DEFAULT (unixepoch()) NOT NULL
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `idx_github` ON `chats` (`github_id`);--> statement-breakpoint
+CREATE INDEX `idx_github` ON `chats` (`github_id`);--> statement-breakpoint
 CREATE TABLE `messages` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`chat_id` text NOT NULL,
@@ -15,4 +15,4 @@ CREATE TABLE `messages` (
 	`created_at` integer DEFAULT (unixepoch()) NOT NULL
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `idx_chat` ON `messages` (`chat_id`);
+CREATE INDEX `idx_chat` ON `messages` (`chat_id`);

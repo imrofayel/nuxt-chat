@@ -1,5 +1,6 @@
 import type { UIMessage } from "ai";
 import { streamText, convertToModelMessages, createGateway } from "ai";
+import { newMessage } from "#server/database/operations";
 
 export default defineLazyEventHandler(async () => {
   const apiKey = useRuntimeConfig().ai.aiGatewayApiKey;
@@ -9,20 +10,29 @@ export default defineLazyEventHandler(async () => {
   const gateway = createGateway({ apiKey });
 
   return defineEventHandler(async (event) => {
-    const { messages, model }: { messages: UIMessage[]; model: string } = await readBody(event);
+    const { messages, model, chatId }: { messages: UIMessage[]; model: string; chatId: string } =
+      await readBody(event);
+
+    // Save the latest user message before streaming
+    if (chatId) {
+      const lastUserMsg = messages.findLast((m) => m.role === "user");
+      if (lastUserMsg) {
+        const text = lastUserMsg.parts
+          .filter((p): p is Extract<typeof p, { type: "text" }> => p.type === "text")
+          .map((p) => p.text)
+          .join("");
+        if (text) await newMessage({ chatId, role: "user", content: text });
+      }
+    }
 
     const result = streamText({
       model: gateway(model),
       messages: await convertToModelMessages(messages),
+      async onFinish({ text }) {
+        if (!chatId || !text) return;
+        await newMessage({ chatId, role: "assistant", content: text });
+      },
     });
-
-    // const uiStream = result.toUIMessageStreamResponse();
-
-    // const usage = await result.totalUsage;
-    // uiStream.headers.set(
-    //   "X-Total-Tokens",
-    //   usage.totalTokens?.toString() || "0",
-    // );
 
     return result.toUIMessageStreamResponse();
   });

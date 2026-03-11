@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-const { chats, currentChat } = useChat();
+const { chats } = useChat();
+const route = useRoute();
+const currentChatId = computed(() => (route.params.chat ? String(route.params.chat) : null));
 </script>
 
 <template>
@@ -10,9 +12,10 @@ const { chats, currentChat } = useChat();
       <ul class="space-y-1">
         <li
           v-for="chat in chats"
-          :key="chat.title"
+          :key="chat.id"
           class="line-clamp-1 cursor-pointer rounded-md p-1.5"
-          :class="currentChat === chat.id && 'bg-elevated ring ring-accented ring-inset'"
+          :class="currentChatId === String(chat.id) && 'bg-elevated ring ring-accented ring-inset'"
+          @click="navigateTo(`/chat/${chat.id}`)"
         >
           {{ chat.title }}
         </li>

@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { sqliteTable, text, integer, uniqueIndex } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
 
 export const RoleEnum = ["user", "assistant", "system"] as const;
 export type Role = (typeof RoleEnum)[number];
@@ -17,7 +17,7 @@ export const chats = sqliteTable(
       .default(sql`(unixepoch())`)
       .notNull(),
   },
-  (table) => [uniqueIndex("idx_github").on(table.githubId)],
+  (table) => [index("idx_github").on(table.githubId)],
 );
 
 export const messages = sqliteTable(
@@ -31,7 +31,7 @@ export const messages = sqliteTable(
       .default(sql`(unixepoch())`)
       .notNull(),
   },
-  (table) => [uniqueIndex("idx_chat").on(table.chatId)],
+  (table) => [index("idx_chat").on(table.chatId)],
 );
 
 export type InsertChat = typeof chats.$inferInsert;

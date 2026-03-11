@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "6a4b1a43-cb44-4c86-af41-330e28a99a18",
+  "id": "8ff4fd79-0ed0-48e5-8fb2-7ef569c8243d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "chats": {
@@ -50,7 +50,7 @@
         "idx_github": {
           "name": "idx_github",
           "columns": ["github_id"],
-          "isUnique": true
+          "isUnique": false
         }
       },
       "foreignKeys": {},
@@ -102,7 +102,7 @@
         "idx_chat": {
           "name": "idx_chat",
           "columns": ["chat_id"],
-          "isUnique": true
+          "isUnique": false
         }
       },
       "foreignKeys": {},
