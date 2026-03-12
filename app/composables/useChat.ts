@@ -21,7 +21,22 @@ export const useChat = () => {
         firstMessage,
       },
     });
-    return result[0]!;
+
+    const createdChat = result[0]!;
+
+    void refreshChats();
+
+    void $fetch("/api/chats/title", {
+      method: "POST",
+      body: {
+        chatId: String(createdChat.id),
+        firstMessage,
+      },
+    })
+      .then(() => refreshChats())
+      .catch(() => {});
+
+    return createdChat;
   }
 
   return { chats, createChat, refreshChats, pending };

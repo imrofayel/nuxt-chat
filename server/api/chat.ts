@@ -1,9 +1,6 @@
 import type { UIMessage } from "ai";
 import { streamText, convertToModelMessages, createGateway } from "ai";
-import { countMessagesByGithubId, newMessage } from "#server/database/operations";
-import type { GitHubUser } from "#shared/types/user";
-
-const MAX_MESSAGES_PER_USER = 30;
+import { newMessage } from "#server/database/operations";
 
 export default defineLazyEventHandler(async () => {
   const apiKey = useRuntimeConfig().ai.aiGatewayApiKey;
@@ -13,21 +10,6 @@ export default defineLazyEventHandler(async () => {
   const gateway = createGateway({ apiKey });
 
   return defineEventHandler(async (event) => {
-    const session = await getUserSession(event);
-    const githubId = (session.user as GitHubUser | undefined)?.githubId;
-
-    if (!githubId) {
-      throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
-    }
-
-    const messageCount = await countMessagesByGithubId(String(githubId));
-    if (messageCount >= MAX_MESSAGES_PER_USER) {
-      throw createError({
-        statusCode: 429,
-        statusMessage: `Message limit reached (${MAX_MESSAGES_PER_USER})`,
-      });
-    }
-
     const { messages, model, chatId }: { messages: UIMessage[]; model: string; chatId: string } =
       await readBody(event);
 
