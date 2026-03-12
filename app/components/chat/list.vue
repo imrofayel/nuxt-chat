@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { chats } = useChat();
+const { chats, pending } = useChat();
 const route = useRoute();
 const currentChatId = computed(() => (route.params.chat ? String(route.params.chat) : null));
 </script>
@@ -7,7 +7,7 @@ const currentChatId = computed(() => (route.params.chat ? String(route.params.ch
 <template>
   <div>
     <aside class="absolute inset-y-12 w-full">
-      <ul class="space-y-1">
+      <ul v-if="!pending" class="space-y-1">
         <li v-for="chat in chats" :key="chat.id">
           <NuxtLink
             :to="`/chat/${chat.id}`"
@@ -20,6 +20,11 @@ const currentChatId = computed(() => (route.params.chat ? String(route.params.ch
           </NuxtLink>
         </li>
       </ul>
+
+      <div v-else class="flex flex-col gap-2">
+        <USkeleton class="h-8 w-full rounded-md" />
+        <USkeleton class="h-8 w-full rounded-md" />
+      </div>
     </aside>
   </div>
 </template>

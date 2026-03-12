@@ -3,7 +3,11 @@ import type { SelectChat } from "#server/database/schema";
 export const useChat = () => {
   const { info } = useUser();
 
-  const { data: chats, refresh: refreshChats } = useFetch<SelectChat[]>("/api/chats", {
+  const {
+    data: chats,
+    refresh: refreshChats,
+    pending,
+  } = useFetch<SelectChat[]>("/api/chats", {
     key: "user-chats",
     query: computed(() => ({ githubId: info.value?.githubId })),
     default: () => [] as SelectChat[],
@@ -20,5 +24,5 @@ export const useChat = () => {
     return result[0]!;
   }
 
-  return { chats, createChat, refreshChats };
+  return { chats, createChat, refreshChats, pending };
 };

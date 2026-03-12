@@ -2,12 +2,12 @@
   <div class="fixed top-6 left-6 z-30 hidden min-h-screen w-62 flex-col justify-between 2xl:flex">
     <div class="flex flex-col gap-2">
       <UButton
-        icon="i-heroicons-plus"
+        icon="codicon:chat-sparkle"
         label="New Chat"
         variant="subtle"
         color="neutral"
         block
-        class="mb-2 cursor-pointer!"
+        class="mb-2 cursor-pointer! text-small"
         @click="navigateTo('/chat')"
       />
       <ChatList />

@@ -13,7 +13,7 @@
       <UButton
         variant="ghost"
         color="neutral"
-        class="flex cursor-pointer items-center gap-2 p-1! px-1.5! text-base!"
+        class="flex cursor-pointer items-center gap-2 p-0! px-1! text-base! font-normal"
         leading-icon="codicon:github-inverted"
         @click="login"
       >
@@ -26,7 +26,7 @@
     v-if="info && showLogout"
     variant="ghost"
     color="neutral"
-    class="flex cursor-pointer items-center rounded-md bg-elevated p-1.5 text-base font-normal! ring ring-accented ring-inset"
+    class="flex cursor-pointer items-center rounded-md bg-elevated p-1.5 px-2.5 text-base font-normal! ring ring-accented ring-inset"
     @click="logout"
   >
     Logout

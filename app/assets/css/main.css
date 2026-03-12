@@ -50,3 +50,10 @@ textarea::-webkit-scrollbar {
 .alter-input [data-slot="base"] {
   font-size: var(--text-small) !important;
 }
+
+.shadow-inner {
+  --tw-shadow: inset 0 -1.2px 0.7px 0 var(--tw-shadow-color, rgb(0 0 0 / 0));
+  box-shadow:
+    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+    var(--tw-ring-shadow), var(--tw-shadow);
+}
