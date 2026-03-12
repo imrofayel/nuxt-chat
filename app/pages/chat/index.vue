@@ -39,11 +39,28 @@ const sendMessage = async (message: string) => {
     }
   }
 };
+
+const regenerateMessage = async (messageId: string) => {
+  if (chat.status === "submitted" || chat.status === "streaming") return;
+  if (!activeChatId.value) return;
+
+  await chat.regenerate({
+    messageId,
+    body: {
+      model: currentModel.value?.value,
+      chatId: activeChatId.value,
+    },
+  });
+};
 </script>
 
 <template>
   <div>
-    <ChatMessages :messages="chat.messages" :streaming="chat.status === 'streaming'" />
+    <ChatMessages
+      :messages="chat.messages"
+      :streaming="chat.status === 'streaming'"
+      @message:regenerate="regenerateMessage"
+    />
     <ChatInput
       :context-usage="34.4"
       :disabled="chat.status === 'submitted' || chat.status === 'streaming'"

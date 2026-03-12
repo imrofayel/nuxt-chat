@@ -55,6 +55,18 @@ const sendMessage = async (message: string) => {
     },
   );
 };
+
+const regenerateMessage = async (messageId: string) => {
+  if (chat.status === "submitted" || chat.status === "streaming") return;
+
+  await chat.regenerate({
+    messageId,
+    body: {
+      model: currentModel.value?.value,
+      chatId: chatId.value,
+    },
+  });
+};
 </script>
 
 <template>
@@ -69,7 +81,12 @@ const sendMessage = async (message: string) => {
         <USkeleton class="h-12" :class="i % 2 !== 0 ? 'w-40' : 'w-96'" />
       </div>
     </div>
-    <ChatMessages v-else :messages="chat.messages" :streaming="chat.status === 'streaming'" />
+    <ChatMessages
+      v-else
+      :messages="chat.messages"
+      :streaming="chat.status === 'streaming'"
+      @message:regenerate="regenerateMessage"
+    />
     <ChatInput
       :context-usage="34.4"
       :disabled="chat.status === 'submitted' || chat.status === 'streaming'"

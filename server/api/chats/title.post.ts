@@ -12,7 +12,7 @@ const titleSchema = z.object({
   title: z
     .string()
     .describe("The generated title for the AI chat with respect to the first message")
-    .max(50, "Title must be less than 50 characters"),
+    .max(40, "Title must be less than 50 characters"),
 });
 
 const apiKey = useRuntimeConfig().ai.aiGatewayApiKey;
@@ -33,7 +33,8 @@ export default defineEventHandler(async (event) => {
     output: Output.object({ schema: titleSchema }),
     prompt:
       "Generate a concise and perfect title for an AI chat based on the following first message:\n\n" +
-      req.data.firstMessage,
+      req.data.firstMessage +
+      "\n\n Title should be like a topic of the chat, do not mention 'Chat' inside title. Also it should be directly taken from the message literally, make it a perfect complete title within 40 characters",
   });
 
   const updated = await updateChatTitle({
