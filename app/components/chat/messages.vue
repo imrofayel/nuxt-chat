@@ -210,7 +210,7 @@ onUnmounted(() => clearInterval(intervalId));
             :href="link.url"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex max-w-fit items-center gap-2 rounded-full! border-none! bg-transparent px-2.5 py-1.5 text-sm ring ring-accented ring-inset hover:bg-elevated"
+            class="inline-flex max-w-fit items-center gap-2 rounded-full! border-none! bg-elevated px-2.5 py-1.5 text-sm ring ring-accented ring-inset hover:bg-accented"
           >
             <img
               v-if="link.domain"

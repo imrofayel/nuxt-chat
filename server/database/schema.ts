@@ -27,6 +27,7 @@ export const messages = sqliteTable(
     chatId: text("chat_id").notNull(),
     role: text("role").$type<Role>().notNull(),
     content: text("content").notNull(),
+
     createdAt: integer("created_at", { mode: "timestamp" })
       .default(sql`(unixepoch())`)
       .notNull(),
