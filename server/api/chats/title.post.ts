@@ -45,6 +45,7 @@ export default defineEventHandler(async (event) => {
       * **Do not copy phrases directly** from the user's message
       * Write a **natural, complete title**, not keywords or fragments
       * Prefer clarity and readability over cleverness
+      * If user just say hi, title should be like "Greetings" or a casual one.
 
       `,
   });
