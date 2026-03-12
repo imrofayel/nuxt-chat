@@ -14,13 +14,7 @@ const getText = (message: UIMessage) =>
     .map((p) => p.text)
     .join("");
 
-const phrases = [
-  "Agent is thinking...",
-  "Processing your request...",
-  "Analyzing the data...",
-  "Generating response...",
-  "Almost there...",
-];
+const phrases = ["Agent is thinking...", "Searching web results...", "Almost there..."];
 
 const currentIndex = ref(0);
 let intervalId: ReturnType<typeof setInterval>;

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@ai-sdk/vue": "^3.0.116",
+    "@exalabs/ai-sdk": "^1.0.5",
     "@libsql/client": "^0.17.0",
     "@nuxt/eslint": "1.15.2",
     "@nuxt/fonts": "0.14.0",

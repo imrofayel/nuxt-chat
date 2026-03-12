@@ -1,6 +1,7 @@
 import type { UIMessage } from "ai";
-import { streamText, convertToModelMessages, createGateway } from "ai";
+import { streamText, convertToModelMessages, createGateway, stepCountIs } from "ai";
 import { newMessage } from "#server/database/operations";
+import { webSearch } from "@exalabs/ai-sdk";
 
 export default defineLazyEventHandler(async () => {
   const apiKey = useRuntimeConfig().ai.aiGatewayApiKey;
@@ -27,6 +28,10 @@ export default defineLazyEventHandler(async () => {
     const result = streamText({
       model: gateway(model),
       messages: await convertToModelMessages(messages),
+      tools: {
+        webSearch: webSearch(),
+      },
+      stopWhen: stepCountIs(3),
       async onFinish({ text }) {
         if (!chatId || !text) return;
         await newMessage({ chatId, role: "assistant", content: text });
