@@ -167,36 +167,38 @@ onUnmounted(() => clearInterval(intervalId));
           tag="article"
         />
 
-        <ChatMessageActions
-          :text="getText(message)"
-          :show-regenerate="message.role === 'assistant' && message.id === lastAssistantMessageId"
-          :disable-regenerate="props.streaming"
-          @message:regenerate="emit('message:regenerate', message.id)"
-        />
+        <div class="mb-4 flex items-center gap-2" v-if="!streaming">
+          <ChatMessageActions
+            :text="getText(message)"
+            :show-regenerate="message.role === 'assistant' && message.id === lastAssistantMessageId"
+            :disable-regenerate="props.streaming"
+            @message:regenerate="emit('message:regenerate', message.id)"
+          />
 
-        <UButton
-          v-if="getMessageLinks(message).length"
-          variant="subtle"
-          color="neutral"
-          class="mb-2 max-w-fit"
-          @click="toggleSources(message.id)"
-        >
-          <template #default>
-            <span class="inline-flex items-center gap-2 text-[15.5px] font-normal">
-              <span class="inline-flex -space-x-1">
-                <img
-                  v-for="(link, previewIdx) in getMessageLinks(message).slice(0, 3)"
-                  :key="`${message.id}-preview-${previewIdx}`"
-                  :src="getFaviconUrl(link.domain)"
-                  :alt="`${link.domain} favicon`"
-                  class="h-4 w-4 rounded-full bg-default ring-2 ring-default"
-                  loading="lazy"
-                />
+          <UButton
+            v-if="getMessageLinks(message).length"
+            variant="subtle"
+            color="neutral"
+            class="max-w-fit rounded-full! border-none! bg-transparent! ring ring-accented ring-inset hover:bg-elevated!"
+            @click="toggleSources(message.id)"
+          >
+            <template #default>
+              <span class="inline-flex items-center gap-2 text-[15.5px] font-normal">
+                <span class="inline-flex -space-x-1">
+                  <img
+                    v-for="(link, previewIdx) in getMessageLinks(message).slice(0, 3)"
+                    :key="`${message.id}-preview-${previewIdx}`"
+                    :src="getFaviconUrl(link.domain)"
+                    :alt="`${link.domain} favicon`"
+                    class="h-4 w-4 rounded-full"
+                    loading="lazy"
+                  />
+                </span>
+                <span>Sources</span>
               </span>
-              <span>Sources</span>
-            </span>
-          </template>
-        </UButton>
+            </template>
+          </UButton>
+        </div>
 
         <div
           v-if="!props.streaming && isSourcesOpen(message.id) && getMessageLinks(message).length"
@@ -208,7 +210,7 @@ onUnmounted(() => clearInterval(intervalId));
             :href="link.url"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex max-w-fit items-center gap-2 rounded-md bg-elevated px-2.5 py-1.5 text-sm ring ring-accented ring-inset hover:bg-default"
+            class="inline-flex max-w-fit items-center gap-2 rounded-full! border-none! bg-transparent px-2.5 py-1.5 text-sm ring ring-accented ring-inset hover:bg-elevated"
           >
             <img
               v-if="link.domain"

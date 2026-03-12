@@ -20,7 +20,7 @@ const copyText = async () => {
 </script>
 
 <template>
-  <div class="mt-2 flex items-center gap-1.5 text-muted">
+  <div class="flex items-center gap-1.5 text-muted">
     <UTooltip text="Copy">
       <UButton
         variant="ghost"

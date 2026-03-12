@@ -49,7 +49,7 @@
   "lint-staged": {
     "*.{js,ts,vue}": [
       "eslint .",
-      "oxfmt --check"
+      "oxfmt"
     ],
     "*.{json,md,css,scss,html,yml}": [
       "oxfmt --check"
