@@ -1,4 +1,4 @@
-import { eq, sql } from "drizzle-orm";
+import { eq, sql, and, desc } from "drizzle-orm";
 import db from "#server/database/db";
 import { chats, messages, type Role } from "#server/database/schema";
 
@@ -46,4 +46,24 @@ function updateChatTitle({ chatId, title }: { chatId: string; title: string }) {
     .returning();
 }
 
-export { newChat, newMessage, getChatsByGithubId, getMessagesByChatId, updateChatTitle };
+async function deleteLastAssistantMessage(chatId: string) {
+  const [lastMsg] = await db
+    .select({ id: messages.id })
+    .from(messages)
+    .where(and(eq(messages.chatId, chatId), eq(messages.role, "assistant")))
+    .orderBy(desc(messages.id))
+    .limit(1);
+
+  if (!lastMsg) return;
+
+  return db.delete(messages).where(eq(messages.id, lastMsg.id));
+}
+
+export {
+  newChat,
+  newMessage,
+  getChatsByGithubId,
+  getMessagesByChatId,
+  updateChatTitle,
+  deleteLastAssistantMessage,
+};

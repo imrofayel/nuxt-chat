@@ -64,6 +64,7 @@ const regenerateMessage = async (messageId: string) => {
     body: {
       model: currentModel.value?.value,
       chatId: chatId.value,
+      isRegenerate: true,
     },
   });
 };

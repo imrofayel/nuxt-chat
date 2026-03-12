@@ -34,7 +34,19 @@ export default defineEventHandler(async (event) => {
     prompt:
       "Generate a concise and perfect title for an AI chat based on the following first message:\n\n" +
       req.data.firstMessage +
-      "\n\n Title should be like a topic of the chat, do not mention 'Chat' inside title. Also it should be directly taken from the message literally, make it a perfect complete title within 40 characters",
+      `
+      Generate a concise title that summarizes the overall topic of the conversation.
+
+      Guidelines:
+
+      * Maximum length: **40 characters**
+      * The title should reflect the **main theme of the entire chat**, not just the first message
+      * **Do not include the word "Chat"**
+      * **Do not copy phrases directly** from the user's message
+      * Write a **natural, complete title**, not keywords or fragments
+      * Prefer clarity and readability over cleverness
+
+      `,
   });
 
   const updated = await updateChatTitle({
